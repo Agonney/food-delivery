@@ -13,14 +13,22 @@ import {
 import * as React from 'react'
 import { FiMenu } from 'react-icons/fi'
 import {useNavigate} from 'react-router-dom'
+import {useIsAuthenticated, useSignOut} from 'react-auth-kit';
 
 export const Navbar = () => {
   const isDesktop = useBreakpointValue({
     base: false,
     lg: true,
   })
+  const isAuthenticated = useIsAuthenticated()
+  const signOut = useSignOut()
 
   const navigate = useNavigate()
+
+  const handleLogout = () => {
+    signOut()
+    navigate('/login')
+  }
 
   return (
     <Box
@@ -46,14 +54,20 @@ export const Navbar = () => {
                     <Button key={item}>{item}</Button>
                   ))} */}
                   <Button onClick={() => navigate('/')}>Home</Button>
-                  <Button onClick={() => navigate('/')}>Restaurants</Button>
+                  <Button onClick={() => navigate('/restaurants')}>Restaurants</Button>
                   <Button onClick={() => navigate('/')}>Items</Button>
                   <Button onClick={() => navigate('/')}>About Us</Button>
                 </ButtonGroup>
-                <HStack spacing="3">
-                  <Button onClick={() => navigate('/login')} variant="ghost">Sign in</Button>
-                  <Button onClick={() => navigate('/signup')} variant="primary">Sign up</Button>
-                </HStack>
+                {isAuthenticated() ? (
+                  <HStack spacing='3'>
+                    <Button onClick={() => handleLogout()} variant="ghost">Logout</Button>
+                  </HStack> ) : (
+                  <HStack spacing="3">
+                    <Button onClick={() => navigate('/login')} variant="ghost">Sign in</Button>
+                    <Button onClick={() => navigate('/signup')} variant="primary">Sign up</Button>
+                  </HStack>
+                  )
+                }
               </Flex>
             ) : (
               <IconButton

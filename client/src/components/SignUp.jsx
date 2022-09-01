@@ -15,7 +15,8 @@ import {
   } from '@chakra-ui/react'
   import * as React from 'react'
 import { useState } from 'react'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, Navigate} from 'react-router-dom'
+import { useIsAuthenticated } from 'react-auth-kit'
 
 
 const submitLogin = (props) => {
@@ -23,6 +24,11 @@ const submitLogin = (props) => {
 }
   
 export const SignUp = () => {
+    const isAuthenticated = useIsAuthenticated()
+    if(isAuthenticated()){
+        return <Navigate to='/' replace />
+    }
+
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')

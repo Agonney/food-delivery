@@ -15,17 +15,41 @@ import {
   } from '@chakra-ui/react'
   import * as React from 'react'
 import { useState } from 'react'
-import {useNavigate} from 'react-router-dom'
+import {Navigate, useNavigate} from 'react-router-dom'
+import apiClient from '../apiClient'
+import { useSignIn, useAuthUser, useIsAuthenticated } from 'react-auth-kit'
 
-
-const submitLogin = (props) => {
-    alert(props.email)
-}
   
 export const Login = () => {
+    const isAuthenticated = useIsAuthenticated()
+    if(isAuthenticated()){
+        return <Navigate to='/' replace />
+    }
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
+    const signIn = useSignIn()
+
+    const submitLogin = () => {
+        apiClient.post('/user/login', {email, password})
+                .then((res)=>{
+                    if(res.status === 200){
+                        if(signIn({token: res.data.token,
+                                   expiresIn:180,
+                                   tokenType: "Bearer",
+                                   authState: res.data.registeredUser})){
+                            navigate('/restaurants')
+                        }else {
+                            alert('failed')
+                        }
+                    }else{
+                        alert('failed')
+                    }
+                }).catch((e) => {
+                    alert(e)
+                })
+    }
     
     return(
         <Container
@@ -101,7 +125,7 @@ export const Login = () => {
                 <Checkbox defaultChecked>Remember me</Checkbox>
                 </HStack>
                 <Stack spacing="6">
-                <Button variant="primary" onClick={() => submitLogin({email, password})}>Sign in</Button>
+                <Button variant="primary" onClick={() => submitLogin()}>Sign in</Button>
                 </Stack>
             </Stack>
             </Box>
