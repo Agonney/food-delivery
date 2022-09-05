@@ -17,16 +17,26 @@ import {
 import { useState } from 'react'
 import {useNavigate, Navigate} from 'react-router-dom'
 import { useIsAuthenticated } from 'react-auth-kit'
+import apiClient from '../apiClient'
 
-
-const submitLogin = (props) => {
-    alert(props.email)
-}
   
 export const SignUp = () => {
     const isAuthenticated = useIsAuthenticated()
     if(isAuthenticated()){
         return <Navigate to='/' replace />
+    }
+
+    const submitRegister = () => {
+        apiClient.post('/user/register', {email, name, password})
+                .then((res)=>{
+                    if(res.status === 200){
+                        navigate('/login')
+                    }else{
+                        alert(res.data)
+                    }
+                }).catch((e) => {
+                    alert(e)
+                })
     }
 
     const [name, setName] = useState('')
@@ -109,7 +119,7 @@ export const SignUp = () => {
                     </FormControl>
                 </Stack>
                 <Stack spacing="6">
-                <Button variant="primary" onClick={() => submitLogin({email, password})}>Sign up</Button>
+                <Button variant="primary" onClick={() => submitRegister()}>Sign up</Button>
                 </Stack>
             </Stack>
             </Box>

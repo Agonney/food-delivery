@@ -37,7 +37,7 @@ export const Login = () => {
                     if(res.status === 200){
                         if(signIn({token: res.data.token,
                                    expiresIn:180,
-                                   tokenType: "Bearer",
+                                   tokenType: "",
                                    authState: res.data.registeredUser})){
                             navigate('/restaurants')
                         }else {

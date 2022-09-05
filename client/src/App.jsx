@@ -10,6 +10,7 @@ import { Footer } from './components/Footer';
 import { HomePage } from './containers/HomePage';
 import { AuthProvider } from 'react-auth-kit'
 import { Restaurants } from './containers/Restaurants'
+import { Items } from './containers/Items'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/restaurants" element={<Restaurants />} />
+            <Route path="/items" element={<Items />} />
         </Routes>
         <Footer />
       </BrowserRouter>

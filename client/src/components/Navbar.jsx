@@ -55,7 +55,7 @@ export const Navbar = () => {
                   ))} */}
                   <Button onClick={() => navigate('/')}>Home</Button>
                   <Button onClick={() => navigate('/restaurants')}>Restaurants</Button>
-                  <Button onClick={() => navigate('/')}>Items</Button>
+                  <Button onClick={() => navigate('/items')}>Items</Button>
                   <Button onClick={() => navigate('/')}>About Us</Button>
                 </ButtonGroup>
                 {isAuthenticated() ? (

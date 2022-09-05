@@ -1,36 +1,35 @@
 const mongoose = require('mongoose');
 
 
-const UserSchema = new mongoose.Schema({
-    email : {
-        type: String,
-        required: true,
-        unique: true
-    },
+const ProductSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
     },
-    password: {
+    price: {
+        type: Number,
+        required: true,
+    },
+    description: {
         type: String,
-        required: true
+        required: true,
+    },
+    image: {
+        type: String,
+        required: true,
     },
     date: {
         type: Date,
         default: Date.now
     }
-
-    // Add more fields here
-    
 })
 
-UserSchema.set('toJSON', {
+ProductSchema.set('toJSON', {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id.toString()
         delete returnedObject._id
         delete returnedObject.__v
-        delete returnedObject.password
     }
 })
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Product', ProductSchema);
