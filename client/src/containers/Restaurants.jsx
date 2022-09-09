@@ -1,14 +1,20 @@
 import React from 'react'
 import apiClient from '../apiClient'
-import {useAuthHeader, useAuthUser} from 'react-auth-kit'
+import {useAuthHeader, useAuthUser, useIsAuthenticated} from 'react-auth-kit'
 import { Input, Button, Box, Heading, Stack, VStack } from '@chakra-ui/react'
 import { useState } from 'react'
 import { useFormik } from 'formik'
+import { Navigate } from 'react-router-dom'
 
 export const Restaurants = () => {
+    const isAuthenticated = useIsAuthenticated()
+    if(!isAuthenticated()){
+        return <Navigate to='/login' replace />
+    }
+
+
     const authHeader = useAuthHeader()
     const user = useAuthUser()
-    const [image, setImage] = useState(null)
 
     const config = {
       headers: { 
@@ -31,22 +37,6 @@ export const Restaurants = () => {
         })
       }
     });
-
-    
-
-    const createProduct =  async () => {
-
-      const newProduct = {
-        name: 'Product 1',
-        price: '3.5',
-        description: 'This is an example product',
-        image: image
-      }
-
-      // apiClient.post('/private/product', newProduct, config).then((res) => {
-      //   console.log(res)
-      // })
-    }
 
     return (
       <div>

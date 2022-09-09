@@ -10,10 +10,10 @@ import {
     Text,
   } from '@chakra-ui/react'
   import * as React from 'react'
-  import { FaFacebook, FaGithub, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa'
+  import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa'
   
   export const Footer = () => (
-    <Container as="footer" role="contentinfo">
+    <Container as="footer" role="contentinfo" marginTop={20}>
       <Stack
         spacing="8"
         direction={{

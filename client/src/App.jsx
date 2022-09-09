@@ -11,6 +11,8 @@ import { HomePage } from './containers/HomePage';
 import { AuthProvider } from 'react-auth-kit'
 import { Restaurants } from './containers/Restaurants'
 import { Items } from './containers/Items'
+import ItemDetails from './containers/ItemDetails';
+import { Checkout } from './containers/Checkout';
 
 function App() {
   return (
@@ -25,7 +27,10 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/restaurants" element={<Restaurants />} />
-            <Route path="/items" element={<Items />} />
+            <Route path="/items" element={<Items />}>
+              <Route path=":itemId" element={<ItemDetails />} />
+            </Route>
+            <Route path="/checkout" element={<Checkout />} />
         </Routes>
         <Footer />
       </BrowserRouter>

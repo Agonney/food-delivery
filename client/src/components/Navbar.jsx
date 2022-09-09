@@ -7,13 +7,25 @@ import {
   HStack,
   IconButton,
   Img,
+  Menu,
+  MenuButton,
+  MenuList,
+  Image,
+  MenuDivider,
+  Tag,
+  MenuItem,
   useBreakpointValue,
   useColorModeValue,
+  CloseButton,
+  Icon,
+  TagLabel,
 } from '@chakra-ui/react'
 import * as React from 'react'
 import { FiMenu } from 'react-icons/fi'
 import {useNavigate} from 'react-router-dom'
 import {useIsAuthenticated, useSignOut} from 'react-auth-kit';
+import { ShoppingCart } from './ShoppingCart';
+
 
 export const Navbar = () => {
   const isDesktop = useBreakpointValue({
@@ -22,8 +34,8 @@ export const Navbar = () => {
   })
   const isAuthenticated = useIsAuthenticated()
   const signOut = useSignOut()
-
   const navigate = useNavigate()
+
 
   const handleLogout = () => {
     signOut()
@@ -37,6 +49,9 @@ export const Navbar = () => {
         base: '12',
         md: '24',
       }}
+      position={'sticky'}
+      top='0'
+      zIndex={2}
     >
       <Box as="nav" bg="bg-surface" boxShadow={useColorModeValue('sm', 'sm-dark')}>
         <Container
@@ -50,9 +65,6 @@ export const Navbar = () => {
             {isDesktop ? (
               <Flex justify="space-between" flex="1">
                 <ButtonGroup variant="link" spacing="8">
-                  {/* {['Home', 'Restaurants', 'Items', 'About Us'].map((item) => (
-                    <Button key={item}>{item}</Button>
-                  ))} */}
                   <Button onClick={() => navigate('/')}>Home</Button>
                   <Button onClick={() => navigate('/restaurants')}>Restaurants</Button>
                   <Button onClick={() => navigate('/items')}>Items</Button>
@@ -60,6 +72,7 @@ export const Navbar = () => {
                 </ButtonGroup>
                 {isAuthenticated() ? (
                   <HStack spacing='3'>
+                    <ShoppingCart />
                     <Button onClick={() => handleLogout()} variant="ghost">Logout</Button>
                   </HStack> ) : (
                   <HStack spacing="3">

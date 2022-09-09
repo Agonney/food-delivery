@@ -15,11 +15,18 @@ import {
   import { Rating } from './Rating'
   import { FavouriteButton } from './FavoriteButton'
   import { PriceTag } from './PriceTag'
+  import { useDispatch } from 'react-redux'
+  import { addItem } from '../state/cartReducer'
+  import { useNavigate } from 'react-router-dom'
   
   
   export const ProductCard = (props) => {
     const { product, rootProps } = props
     const { name, image, price, salePrice, rating } = product
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     return (
       <Stack
         spacing={useBreakpointValue({
@@ -67,7 +74,7 @@ import {
           </HStack>
         </Stack>
         <Stack align="center">
-          <Button colorScheme="blue" width="full">
+          <Button colorScheme="blue" width="full" onClick={() => dispatch(addItem(product))}>
             Add to cart
           </Button>
         </Stack>
