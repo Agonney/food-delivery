@@ -16,7 +16,7 @@ import {
   import { FavouriteButton } from './FavoriteButton'
   import { PriceTag } from './PriceTag'
   import { useDispatch } from 'react-redux'
-  import { addItem } from '../state/cartReducer'
+  import { addItem, addPrice } from '../state/cartReducer'
   import { useNavigate } from 'react-router-dom'
   
   
@@ -74,7 +74,10 @@ import {
           </HStack>
         </Stack>
         <Stack align="center">
-          <Button colorScheme="blue" width="full" onClick={() => dispatch(addItem(product))}>
+          <Button colorScheme="blue" width="full" onClick={() => {  
+                dispatch(addItem(product))
+                dispatch(addPrice({id: product.id, price: product.price}))
+                }}>
             Add to cart
           </Button>
         </Stack>

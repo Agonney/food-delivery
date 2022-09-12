@@ -21,11 +21,12 @@ const homeRoutes = require('./routes/home')
 const authRoutes = require('./routes/auth')
 const privateRoutes = require('./routes/privateRoutes')
 const productRoutes = require('./routes/productRoutes')
+const orderRoutes = require('./routes/orderRoutes')
 
 
 // Middlewares
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json())
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(morgan('dev'))
 // -> Route Middlewares
@@ -33,6 +34,7 @@ app.use('/', homeRoutes);
 app.use('/api/private', privateRoutes);
 app.use('/api/user', authRoutes);
 app.use('/api/product', productRoutes)
+app.use('/api/order', orderRoutes)
 
 
 

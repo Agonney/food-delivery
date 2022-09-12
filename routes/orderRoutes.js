@@ -5,8 +5,13 @@ const authenticateUser = require('./verifyToken');
 router.post('/', authenticateUser, async (req, res) => {
 
     const order = Order({
-        price: req.body.price,
-        description: req.body.description
+        customerFullName: req.body.values.name,
+        customerAddress: req.body.values.streetAddress,
+        customerCity: req.body.values.city,
+        paymentMethod: req.body.paymentMethod,
+        totalPrice: req.body.totalPrice,
+        products: req.body.productQuantity,
+        customer: req.body.userId
     })
 
     try{
@@ -31,7 +36,7 @@ router.get('/:id', authenticateUser, async(req, res) => {
 
 router.get('/', authenticateUser, async(req, res) => {
 
-    const orders = await Order.find({})
+    const orders = await Order.find({}).populate(['customer', 'products.product'])
     if(orders){
         res.status(200).send(orders)
     }

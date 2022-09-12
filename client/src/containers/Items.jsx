@@ -24,6 +24,8 @@ export const Items = () => {
       }
     }
 
+    
+
     useEffect(() => {
       apiClient.get('/product', config).then((res) => {
         setProducts(res.data)

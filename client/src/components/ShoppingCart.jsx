@@ -6,10 +6,12 @@ import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
+
 export const ShoppingCart = () => {
     const cartItems = useSelector((state) => state.cart.items)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    
 
     return (
         <Menu closeOnSelect={false}>

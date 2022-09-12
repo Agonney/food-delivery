@@ -3,7 +3,6 @@ import { Box, AspectRatio, Image, Skeleton, HStack, useBreakpointValue,
 import { useDispatch, useSelector } from 'react-redux'
 import { removeItem, addPrice } from '../state/cartReducer';
 import { useState } from "react";
-import { usePrevious } from "@chakra-ui/react";
 
 export const CheckoutProduct = ({product}) => {
 
@@ -11,7 +10,6 @@ export const CheckoutProduct = ({product}) => {
     const cart = useSelector((state) => state.cart)
     const [currentValue, setCurrentValue] = useState(1)
     const [totalProductPrice, setTotalProductPrice] = useState(product.price)
-    console.log(cart)
 
     const onQuantitySelect = (e) => {
         setCurrentValue(e.target.value)
@@ -19,7 +17,6 @@ export const CheckoutProduct = ({product}) => {
         setTotalProductPrice(price)
         const id = product.id
         dispatch(addPrice({id, price}))
-        // dispatch(removePrice(priceToRemove))
     }
 
     return(
