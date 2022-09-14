@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Order = require('../models/OrderModel')
 const authenticateUser = require('./verifyToken');
+const querystring = require('querystring');
 
 router.post('/', authenticateUser, async (req, res) => {
 
@@ -8,6 +9,7 @@ router.post('/', authenticateUser, async (req, res) => {
         customerFullName: req.body.values.name,
         customerAddress: req.body.values.streetAddress,
         customerCity: req.body.values.city,
+        customerPhone: req.body.values.phoneNumber,
         paymentMethod: req.body.paymentMethod,
         totalPrice: req.body.totalPrice,
         products: req.body.productQuantity,
@@ -36,12 +38,34 @@ router.get('/:id', authenticateUser, async(req, res) => {
 
 router.get('/', authenticateUser, async(req, res) => {
 
-    const orders = await Order.find({}).populate(['customer', 'products.product'])
+    let user = req.query.user
+    let orders
+
+    if(user){
+        orders = await Order.find({customer: user}).populate(['customer', 'products.product'])
+    }else{
+        orders = await Order.find({}).populate(['customer', 'products.product'])
+    }
+
     if(orders){
         res.status(200).send(orders)
     }
     else{
         res.status(400).send({message: 'No orders found'})
+    }
+})
+
+
+router.delete('/', authenticateUser, async(req, res) => {
+
+    let orderId = req.query.id
+
+    const order = await Order.findByIdAndDelete(orderId)
+    if(order){
+        res.status(204).send(order)
+    }
+    else{
+        res.status(400).send({message: 'No order with this ID found'})
     }
 })
 

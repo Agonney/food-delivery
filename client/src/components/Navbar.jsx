@@ -72,6 +72,7 @@ export const Navbar = () => {
                 </ButtonGroup>
                 {isAuthenticated() ? (
                   <HStack spacing='3'>
+                    <Button onClick={() => navigate('/orders')}>Orders</Button>
                     <ShoppingCart />
                     <Button onClick={() => handleLogout()} variant="ghost">Logout</Button>
                   </HStack> ) : (

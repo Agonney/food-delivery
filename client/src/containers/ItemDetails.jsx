@@ -16,10 +16,41 @@ import {
     List,
     ListItem,
   } from '@chakra-ui/react';
-  import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
-  import { MdLocalShipping } from 'react-icons/md';
-  
+import { useState, useEffect } from 'react';
+import { MdLocalShipping } from 'react-icons/md';
+import { useParams } from 'react-router';
+import { useIsAuthenticated, useAuthHeader } from 'react-auth-kit';
+import apiClient from '../apiClient';  
+import { useDispatch } from 'react-redux'
+import { addItem, addPrice } from '../state/cartReducer'
+
   export default function ItemDetails() {
+    const isAuthenticated = useIsAuthenticated()
+    if(!isAuthenticated()){
+        return <Navigate to='/login' replace />
+    }
+
+    const authHeader = useAuthHeader()
+    const { itemId } = useParams()
+    const [product, setProduct] = useState(null)
+    const dispatch = useDispatch()
+
+    const config = {
+      headers: { 
+        Authorization: authHeader(),
+        'Content-Type': 'application/json' 
+      }
+    }
+
+    useEffect(() => {
+      apiClient.get(`/product/${itemId}`, config).then((res) => {
+        setProduct(res.data)
+      }).catch((error) => {
+        console.log(error)
+      })
+    }, [])
+
+
     return (
       <Container maxW={'7xl'}>
         <SimpleGrid
@@ -30,9 +61,7 @@ import {
             <Image
               rounded={'md'}
               alt={'product image'}
-              src={
-                'https://images.unsplash.com/photo-1596516109370-29001ec8ec36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyODE1MDl8MHwxfGFsbHx8fHx8fHx8fDE2Mzg5MzY2MzE&ixlib=rb-1.2.1&q=80&w=1080'
-              }
+              src={`http://localhost:3001/${product?.image}`}              
               fit={'cover'}
               align={'center'}
               w={'100%'}
@@ -45,13 +74,13 @@ import {
                 lineHeight={1.1}
                 fontWeight={600}
                 fontSize={{ base: '2xl', sm: '4xl', lg: '5xl' }}>
-                Automatic Watch
+                {product?.name}
               </Heading>
               <Text
                 color={useColorModeValue('gray.900', 'gray.400')}
                 fontWeight={300}
                 fontSize={'2xl'}>
-                $350.00 USD
+                €{product?.price} EUR
               </Text>
             </Box>
   
@@ -72,10 +101,7 @@ import {
                   diam nonumy eirmod tempor invidunt ut labore
                 </Text>
                 <Text fontSize={'lg'}>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad
-                  aliquid amet at delectus doloribus dolorum expedita hic, ipsum
-                  maxime modi nam officiis porro, quae, quisquam quos
-                  reprehenderit velit? Natus, totam.
+                  {product?.description}
                 </Text>
               </VStack>
               <Box>
@@ -90,14 +116,13 @@ import {
   
                 <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
                   <List spacing={2}>
-                    <ListItem>Chronograph</ListItem>
-                    <ListItem>Master Chronometer Certified</ListItem>{' '}
-                    <ListItem>Tachymeter</ListItem>
+                    <ListItem>Tasty</ListItem>
+                    <ListItem>Baked</ListItem>{' '}
+                    <ListItem>Finger lickin' good</ListItem>
                   </List>
                   <List spacing={2}>
-                    <ListItem>Anti‑magnetic</ListItem>
-                    <ListItem>Chronometer</ListItem>
-                    <ListItem>Small seconds</ListItem>
+                    <ListItem>Chilly like Audemars</ListItem>
+                    <ListItem>Hot like Lava</ListItem>
                   </List>
                 </SimpleGrid>
               </Box>
@@ -112,48 +137,23 @@ import {
                 </Text>
   
                 <List spacing={2}>
-                  <ListItem>
+                <ListItem>
                     <Text as={'span'} fontWeight={'bold'}>
-                      Between lugs:
+                      Name:
                     </Text>{' '}
-                    20 mm
+                    {product?.name}
                   </ListItem>
                   <ListItem>
                     <Text as={'span'} fontWeight={'bold'}>
-                      Bracelet:
+                      Price:
                     </Text>{' '}
-                    leather strap
+                    {product?.price} EUR
                   </ListItem>
                   <ListItem>
                     <Text as={'span'} fontWeight={'bold'}>
-                      Case:
+                      Description:
                     </Text>{' '}
-                    Steel
-                  </ListItem>
-                  <ListItem>
-                    <Text as={'span'} fontWeight={'bold'}>
-                      Case diameter:
-                    </Text>{' '}
-                    42 mm
-                  </ListItem>
-                  <ListItem>
-                    <Text as={'span'} fontWeight={'bold'}>
-                      Dial color:
-                    </Text>{' '}
-                    Black
-                  </ListItem>
-                  <ListItem>
-                    <Text as={'span'} fontWeight={'bold'}>
-                      Crystal:
-                    </Text>{' '}
-                    Domed, scratch‑resistant sapphire crystal with anti‑reflective
-                    treatment inside
-                  </ListItem>
-                  <ListItem>
-                    <Text as={'span'} fontWeight={'bold'}>
-                      Water resistance:
-                    </Text>{' '}
-                    5 bar (50 metres / 167 feet){' '}
+                    {product?.description}
                   </ListItem>
                 </List>
               </Box>
@@ -171,7 +171,12 @@ import {
               _hover={{
                 transform: 'translateY(2px)',
                 boxShadow: 'lg',
-              }}>
+              }}
+              onClick={() => {  
+                dispatch(addItem(product))
+                dispatch(addPrice({id: product.id, price: product.price}))
+                }}
+              >
               Add to cart
             </Button>
   

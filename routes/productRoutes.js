@@ -26,6 +26,18 @@ router.post('/', authenticateUser, async (req, res) => {
     }
 })
 
+router.get('/:productId', authenticateUser, async(req, res) => {
+    const productId = req.params.productId
+
+    const product = await Product.findById(productId)
+    if(product){
+        res.status(200).send(product)
+    }
+    else{
+        res.status(400).send({message: 'Product not found'})
+    }
+})
+
 router.get('/', authenticateUser, async(req, res) => {
     const products = await Product.find({})
     if(products){
@@ -35,5 +47,7 @@ router.get('/', authenticateUser, async(req, res) => {
         res.status(400).send({message: 'No products found'})
     }
 })
+
+
 
 module.exports = router

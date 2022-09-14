@@ -14,6 +14,10 @@ const OrderSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    customerPhone: {
+        type: String,
+        required: true,
+    },
     products: [
         {
             product: {
@@ -37,6 +41,10 @@ const OrderSchema = new mongoose.Schema({
     paymentMethod: {
         type: String,
         required: true
+    },
+    status: {
+        type: String,
+        default: 'open'
     },
     date: {
         type: Date,

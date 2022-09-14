@@ -8,17 +8,22 @@ import { CheckoutProduct } from "../components/CheckoutProduct"
 import { BsChatDots } from 'react-icons/bs'
 import { FiMail } from "react-icons/fi"
 import { BiPhone } from 'react-icons/bi'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useState } from "react"
 import { useForm } from 'react-hook-form'
 import { useAuthUser, useAuthHeader } from 'react-auth-kit';
 import apiClient from '../apiClient'
+import { reset } from "../state/cartReducer"
+import { useNavigate } from "react-router"
+
 
 
 export const Checkout = () => {
     const cart = useSelector((state) => state.cart)
     const user = useAuthUser()
     const authHeader = useAuthHeader()
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [paymentMethod, setPaymentMethod ] = useState('1')
     const totalPrice = () => {
         let sum = 0
@@ -57,7 +62,8 @@ export const Checkout = () => {
           }
 
         apiClient.post('/order', order, config).then((res) => {
-            console.log(res)
+            dispatch(reset())
+            navigate('/success')
         })
     }
 

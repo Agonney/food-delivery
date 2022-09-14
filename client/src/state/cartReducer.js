@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+const initialState = {
+  items: [],
+    total: []
+}
+
 export const cartSlice = createSlice({
   name: 'cartItems',
-  initialState: {
-    items: [],
-    total: []
-  },
+  initialState: initialState,
   reducers: {
     addItem: (state, action) => {
       state.items.push(action.payload)
@@ -26,10 +28,11 @@ export const cartSlice = createSlice({
         const changedTotalPrice = { ...totalPrice, price: action.payload.price}
         return state = { ...state, total: state.total.map(totalPrice => totalPrice.id !== id ? totalPrice : changedTotalPrice)}
       }
-    }
+    },
+    reset: () => initialState
   },
 })
 
-export const { addItem, removeItem, addPrice } = cartSlice.actions
+export const { addItem, removeItem, addPrice, reset } = cartSlice.actions
 
 export default cartSlice.reducer

@@ -80,6 +80,9 @@ import {
                 }}>
             Add to cart
           </Button>
+          <Button colorScheme="gray" width="full" onClick={() => navigate(`/items/${product.id}`)}>
+            View details
+          </Button>
         </Stack>
       </Stack>
     )

@@ -11,8 +11,12 @@ import {
   } from '@chakra-ui/react'
   import * as React from 'react'
   import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa'
+  import { useNavigate } from 'react-router'
   
-  export const Footer = () => (
+  export const Footer = () => {
+    const navigate = useNavigate()
+
+    return(
     <Container as="footer" role="contentinfo" marginTop={20}>
       <Stack
         spacing="8"
@@ -53,9 +57,9 @@ import {
                 Product
               </Text>
               <Stack spacing="3" shouldWrapChildren>
-                <Button variant="link">Restaurants</Button>
-                <Button variant="link">Items</Button>
-                <Button variant="link">About us</Button>
+                <Button variant="link" onClick={() => navigate('/restaurants')}>Restaurants</Button>
+                <Button variant="link" onClick={() => navigate('/items')}>Items</Button>
+                <Button variant="link" onClick={() => navigate('')}>About us</Button>
               </Stack>
             </Stack>
             <Stack spacing="4" minW="36" flex="1">
@@ -106,10 +110,11 @@ import {
           &copy; {new Date().getFullYear()} HaShpejt, Inc. All rights reserved.
         </Text>
         <ButtonGroup variant="ghost">
-          <IconButton as="a" href="#" aria-label="Facebook" icon={<FaFacebook fontSize="1.25rem" />} />
+          <IconButton as="a" href="#"  aria-label="Facebook" icon={<FaFacebook fontSize="1.25rem" />} />
           <IconButton as="a" href="#" aria-label="Instagram" icon={<FaInstagram fontSize="1.25rem" />} />
           <IconButton as="a" href="#" aria-label="Twitter" icon={<FaTwitter fontSize="1.25rem" />} />
         </ButtonGroup>
       </Stack>
     </Container>
   )
+}
