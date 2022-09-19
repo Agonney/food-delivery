@@ -27,6 +27,7 @@
     "react": "^18.2.0",
     "react-auth-kit": "^2.1.0",
     "react-chakra-pagination": "^1.0.1",
+    "react-collapse": "^5.1.1",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.35.0",
     "react-icons": "^4.4.0",
@@ -34,6 +35,7 @@
     "react-redux": "^8.0.2",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
+    "react-simple-maps": "^3.0.0",
     "react-table": "^7.8.0"
   },
   "devDependencies": {

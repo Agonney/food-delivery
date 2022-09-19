@@ -48,6 +48,32 @@ router.get('/', authenticateUser, async(req, res) => {
     }
 })
 
+router.put('/', authenticateUser, async(req, res) => {
+    let productId = req.query.id
+
+    const product = await Product.findByIdAndUpdate(productId, req.body)
+
+    if(product){
+        res.status(200).send(product)
+    }
+    else{
+        res.status(400).send({message: 'No product with this ID found'})
+    }
+})
+
+router.delete('/', authenticateUser, async(req, res) => {
+    let productId = req.query.id
+    
+    const product = await Product.findByIdAndDelete(productId)
+    if(product){
+        res.status(204).send(product)
+    }
+    else{
+        res.status(400).send({message: 'No product with this ID found'})
+    }
+})
+
+
 
 
 module.exports = router

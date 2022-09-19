@@ -16,6 +16,7 @@ import { Checkout } from './containers/Checkout';
 import { Orders } from './containers/Orders'
 import SuccessResult from './containers/SuccessResult';
 import ScrollToTop from './helpers/ScrollToTop';
+import AboutUs from './containers/AboutUs';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/success" element={<SuccessResult />} />
+            <Route path="/about" element={<AboutUs />} />
         </Routes>
         <Footer />
       </BrowserRouter>

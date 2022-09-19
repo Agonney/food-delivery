@@ -183,7 +183,7 @@ export const Checkout = () => {
                     p={{ base: 5, sm: 10 }}
                     roundedLeft={'none'}
                     h={'1000px'}
-                    overflow='scroll'
+                    overflow='auto'
                 >
                     <Heading alignSelf={'start'} size={'xs'}>Order Summary</Heading>
                     {cart.items.map((product, i) => {

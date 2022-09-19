@@ -59,7 +59,7 @@ import {
               <Stack spacing="3" shouldWrapChildren>
                 <Button variant="link" onClick={() => navigate('/restaurants')}>Restaurants</Button>
                 <Button variant="link" onClick={() => navigate('/items')}>Items</Button>
-                <Button variant="link" onClick={() => navigate('')}>About us</Button>
+                <Button variant="link" onClick={() => navigate('/about')}>About us</Button>
               </Stack>
             </Stack>
             <Stack spacing="4" minW="36" flex="1">
