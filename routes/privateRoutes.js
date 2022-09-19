@@ -1,8 +1,9 @@
 const router = require('express').Router();
-const authenticateUser = require('./verifyToken');
+const authenticateUser = require('../helpers/verifyToken');
+const authorize = require('../helpers/authorization')
 
 // using authenticateUser as a midddleware for validation
-router.get('/', authenticateUser,(req, res) => {
+router.get('/', authenticateUser, authorize('user'), (req, res) => {
     res.send(req.user)
 })
 

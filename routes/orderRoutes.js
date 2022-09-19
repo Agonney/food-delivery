@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Order = require('../models/OrderModel')
-const authenticateUser = require('./verifyToken');
+const authenticateUser = require('../helpers/verifyToken');
 const querystring = require('querystring');
 
 router.post('/', authenticateUser, async (req, res) => {
