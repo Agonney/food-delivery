@@ -14,27 +14,29 @@ const RestaurantSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    location: {
+        lat: {
+            type: Number,
+            required: true,
+        },
+        lon: {
+            type: Number,
+            required: true,
+        }
+    },
     rating: {
         type: Number,
         required: false,
         min: 1,
-        max: 10
+        max: 5
     },
-    products: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Product'
-        }
-    ],
-    orders: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Order'
-        }
-    ],
-    manager: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+    description: {
+        type: String,
+        required: true,
+    },
+    image: {
+        type: String,
+        required: true,
     },
     date: {
         type: Date,

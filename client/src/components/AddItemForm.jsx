@@ -1,4 +1,4 @@
-import apiClient from '../../apiClient'
+import apiClient from '../apiClient'
 import {useAuthHeader, useAuthUser} from 'react-auth-kit'
 import { Input, Button, Box, Heading, VStack, Container } from '@chakra-ui/react'
 import { useFormik } from 'formik'

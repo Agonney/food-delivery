@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const {registerValidation, loginValidation} = require('../validations.js');
 const User = require('../models/UserModel');
+const authenticateUser = require('../helpers/verifyToken');
 
 // Routers
 router.post('/register', async (req, res) => {
@@ -51,6 +52,17 @@ router.post('/login', async (req, res) => {
     // Create and assign JWT
     const token = jwt.sign({_id: registeredUser._id, role: registeredUser.role}, process.env.JWT_SECRET);
     res.header('auth-token', token).send({token, registeredUser});
+})
+
+
+router.get('/all', authenticateUser, async(req, res) => {
+    const users = await User.find({})
+    if(users){
+        res.status(200).send(users)
+    }
+    else{
+        res.status(400).send({message: 'No users found'})
+    }
 })
 
 module.exports = router

@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const Product = require('../models/ProductModel')
 const authenticateUser = require('../helpers/verifyToken');
+const authorize = require('../helpers/authorization')
 
-router.post('/', authenticateUser, async (req, res) => {
+router.post('/', authenticateUser, authorize('admin'), async (req, res) => {
 
     if(!req.files){
         res.status(400).send('No image uploaded')

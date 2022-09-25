@@ -22,6 +22,7 @@ const authRoutes = require('./routes/auth')
 const privateRoutes = require('./routes/privateRoutes')
 const productRoutes = require('./routes/productRoutes')
 const orderRoutes = require('./routes/orderRoutes')
+const restaurantRoutes = require('./routes/restaurantRoutes')
 
 
 // Middlewares
@@ -35,6 +36,7 @@ app.use('/api/private', privateRoutes);
 app.use('/api/user', authRoutes);
 app.use('/api/product', productRoutes)
 app.use('/api/order', orderRoutes)
+app.use('/api/restaurant', restaurantRoutes)
 
 
 

@@ -7,23 +7,15 @@ import {
   HStack,
   IconButton,
   Img,
-  Menu,
-  MenuButton,
-  MenuList,
-  Image,
-  MenuDivider,
-  Tag,
-  MenuItem,
   useBreakpointValue,
   useColorModeValue,
   CloseButton,
-  Icon,
   TagLabel,
 } from '@chakra-ui/react'
 import * as React from 'react'
 import { FiMenu } from 'react-icons/fi'
 import {useNavigate} from 'react-router-dom'
-import {useIsAuthenticated, useSignOut} from 'react-auth-kit';
+import {useIsAuthenticated, useSignOut, useAuthUser} from 'react-auth-kit';
 import { ShoppingCart } from './ShoppingCart';
 
 
@@ -33,6 +25,7 @@ export const Navbar = () => {
     lg: true,
   })
   const isAuthenticated = useIsAuthenticated()
+  const user = useAuthUser()
   const signOut = useSignOut()
   const navigate = useNavigate()
 
@@ -72,7 +65,8 @@ export const Navbar = () => {
                 </ButtonGroup>
                 {isAuthenticated() ? (
                   <HStack spacing='3'>
-                    <Button onClick={() => navigate('/orders')}>Orders</Button>
+                    {user().role === 'admin' ? <Button onClick={() => navigate('/dashboard')}>Dashboard</Button> : <></>}
+                    <Button onClick={() => navigate('/orders')}>Your Orders</Button>
                     <ShoppingCart />
                     <Button onClick={() => handleLogout()} variant="ghost">Logout</Button>
                   </HStack> ) : (
