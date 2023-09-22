@@ -25,6 +25,8 @@ const orderRoutes = require('./routes/orderRoutes')
 const restaurantRoutes = require('./routes/restaurantRoutes')
 const applicantRoutes = require('./routes/applicantRoutes')
 const applicationRoutes = require('./routes/applicationRoutes')
+const reviewRoutes = require('./routes/reviewRoutes')
+
 
 // Middlewares
 app.use(cors());
@@ -40,6 +42,7 @@ app.use('/api/order', orderRoutes)
 app.use('/api/restaurant', restaurantRoutes)
 app.use('/api/applicant', applicantRoutes)
 app.use('/api/application', applicationRoutes)
+app.use('/api/review', reviewRoutes)
 
 
 

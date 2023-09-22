@@ -23,6 +23,8 @@ import { useIsAuthenticated, useAuthHeader } from 'react-auth-kit';
 import apiClient from '../apiClient';  
 import { useDispatch } from 'react-redux'
 import { addItem, addPrice } from '../state/cartReducer'
+import { AddReview } from '../components/AddReview'
+import { ReviewList } from '../components/ReviewList'
 
   export default function ItemDetails() {
     const isAuthenticated = useIsAuthenticated()
@@ -186,6 +188,10 @@ import { addItem, addPrice } from '../state/cartReducer'
             </Stack>
           </Stack>
         </SimpleGrid>
+
+        
+        <AddReview itemId={itemId}/>
+        <ReviewList itemId={itemId}/>
       </Container>
     );
   }
