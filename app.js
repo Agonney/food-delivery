@@ -23,7 +23,8 @@ const privateRoutes = require('./routes/privateRoutes')
 const productRoutes = require('./routes/productRoutes')
 const orderRoutes = require('./routes/orderRoutes')
 const restaurantRoutes = require('./routes/restaurantRoutes')
-
+const applicantRoutes = require('./routes/applicantRoutes')
+const applicationRoutes = require('./routes/applicationRoutes')
 
 // Middlewares
 app.use(cors());
@@ -37,6 +38,8 @@ app.use('/api/user', authRoutes);
 app.use('/api/product', productRoutes)
 app.use('/api/order', orderRoutes)
 app.use('/api/restaurant', restaurantRoutes)
+app.use('/api/applicant', applicantRoutes)
+app.use('/api/application', applicationRoutes)
 
 
 

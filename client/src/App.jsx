@@ -18,6 +18,7 @@ import { Restaurants } from './containers/Restaurants';
 import SuccessResult from './containers/SuccessResult';
 import ScrollToTop from './helpers/ScrollToTop';
 import AboutUs from './containers/AboutUs';
+import Application from './containers/Application';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
             <Route path="/orders" element={<Orders />} />
             <Route path="/success" element={<SuccessResult />} />
             <Route path="/about" element={<AboutUs />} />
+            <Route path="/application" element={<Application />} />
         </Routes>
         <Footer />
       </BrowserRouter>
