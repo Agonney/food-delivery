@@ -41,7 +41,7 @@ function App() {
             <Route path="/orders" element={<Orders />} />
             <Route path="/success" element={<SuccessResult />} />
             <Route path="/about" element={<AboutUs />} />
-            <Route path="/application" element={<Application />} />
+            {/* <Route path="/application" element={<Application />} /> */}
         </Routes>
         <Footer />
       </BrowserRouter>
